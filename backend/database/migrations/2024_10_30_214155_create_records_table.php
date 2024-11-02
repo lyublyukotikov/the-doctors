@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('records', function (Blueprint $table) {
             $table->id();
-			$table->string('name');
+			$table->string('name')->nullable();
 			$table->foreignId('slot_id')->constrained('slots');
 			$table->foreignId('client_id')->constrained('clients');
             $table->boolean('is_visited')->default(false);

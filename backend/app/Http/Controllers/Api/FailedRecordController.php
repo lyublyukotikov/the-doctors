@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\FailedRecord\StoreRequest;
+use App\Http\Requests\Api\FailedRecord\UpdateRequest;
+use App\Http\Resources\FailedRecord\FailedRecordResource;
 use App\Models\FailedRecord;
-use Illuminate\Http\Request;
 
 class FailedRecordController extends Controller
 {
@@ -13,23 +15,18 @@ class FailedRecordController extends Controller
      */
     public function index()
     {
-        //
-    }
+		return FailedRecordResource::collection(FailedRecord::all());
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+	}
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+		$data = $request->validated();
+
+		return FailedRecord::create($data);
     }
 
     /**
@@ -37,23 +34,17 @@ class FailedRecordController extends Controller
      */
     public function show(FailedRecord $failedRecord)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(FailedRecord $failedRecord)
-    {
-        //
+		return FailedRecordResource::make($failedRecord);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, FailedRecord $failedRecord)
+    public function update(UpdateRequest $request, FailedRecord $failedRecord)
     {
-        //
+		$failedRecord->update($request->validated());
+
+		return $failedRecord;
     }
 
     /**
@@ -61,6 +52,9 @@ class FailedRecordController extends Controller
      */
     public function destroy(FailedRecord $failedRecord)
     {
-        //
+		$failedRecord->delete();
+		return response([
+			'message' => 'failedRecord deleted successfully'
+		]);
     }
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Record\StoreRequest;
+use App\Http\Requests\Api\Record\UpdateRequest;
+use App\Http\Resources\Record\RecordResource;
 use App\Models\Record;
-use Illuminate\Http\Request;
 
 class RecordController extends Controller
 {
@@ -13,23 +15,17 @@ class RecordController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+		return RecordResource::collection(Record::all());
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+		$data = $request->validated();
+
+		return Record::create($data);
     }
 
     /**
@@ -37,23 +33,17 @@ class RecordController extends Controller
      */
     public function show(Record $record)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Record $record)
-    {
-        //
+		return RecordResource::make($record);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Record $record)
+    public function update(UpdateRequest $request, Record $record)
     {
-        //
+		$record->update($request->validated());
+
+		return $record;
     }
 
     /**
@@ -61,6 +51,9 @@ class RecordController extends Controller
      */
     public function destroy(Record $record)
     {
-        //
+		$record->delete();
+		return response([
+			'message' => 'record deleted successfully'
+		]);
     }
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Slot\StoreRequest;
+use App\Http\Requests\Api\Slot\UpdateRequest;
+use App\Http\Resources\Slot\SlotResource;
 use App\Models\Slot;
-use Illuminate\Http\Request;
 
 class SlotController extends Controller
 {
@@ -13,23 +15,18 @@ class SlotController extends Controller
      */
     public function index()
     {
-        //
-    }
+		return SlotResource::collection(Slot::all());
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+	}
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+		$data = $request->validated();
+
+		return Slot::create($data);
     }
 
     /**
@@ -37,23 +34,17 @@ class SlotController extends Controller
      */
     public function show(Slot $slot)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Slot $slot)
-    {
-        //
+		return SlotResource::make($slot);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Slot $slot)
+    public function update(UpdateRequest $request, Slot $slot)
     {
-        //
+		$slot->update($request->validated());
+
+		return $slot;
     }
 
     /**
@@ -61,6 +52,9 @@ class SlotController extends Controller
      */
     public function destroy(Slot $slot)
     {
-        //
+		$slot->delete();
+		return response([
+			'message' => 'slot deleted successfully'
+		]);
     }
 }

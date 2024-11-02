@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('slots', function (Blueprint $table) {
             $table->id();
-			$table->date('date_start')->nullable();
-			$table->date('date_end')->nullable();
-			$table->foreignId('doctor_id')->constrained('doctors');
+			$table->dateTime('time_start')->nullable();
+			$table->dateTime('time_end')->nullable();
+			$table->foreignId('doctor_hospitals_id')->constrained('doctor_hospitals');
             $table->timestamps();
         });
     }

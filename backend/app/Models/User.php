@@ -4,11 +4,13 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -56,4 +58,35 @@ class User extends Authenticatable
 	{
 		return $this->hasMany(Client::class);
 	}
+
+	public function roles(): BelongsToMany
+	{
+		return $this->belongsToMany(Role::class);
+	}
+
+	public function getJWTIdentifier()
+	{
+		return $this->getKey();
+	}
+
+	public function getJWTCustomClaims(): array
+	{
+		return [];
+	}
+
+	public function getIsAdminAttribute():bool
+	{
+		return auth()->user()->roles->contains('role_idx', Role::ADMIN);
+	}
+
+	public function getIsDoctorAttribute():bool
+	{
+		return auth()->user()->roles->contains('role_idx', Role::DOCTOR);
+	}
+
+	public function getIsClientAttribute():bool
+	{
+		return auth()->user()->roles->contains('role_idx', Role::CLIENT);
+	}
+
 }

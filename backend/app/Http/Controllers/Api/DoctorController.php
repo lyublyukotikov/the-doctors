@@ -7,7 +7,6 @@ use App\Http\Requests\Api\Doctor\StoreRequest;
 use App\Http\Requests\Api\Doctor\UpdateRequest;
 use App\Http\Resources\Doctor\DoctorResource;
 use App\Models\Doctor;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class DoctorController extends Controller
@@ -18,14 +17,6 @@ class DoctorController extends Controller
     public function index(): AnonymousResourceCollection
 	{
         return DoctorResource::collection(Doctor::all());
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -47,14 +38,6 @@ class DoctorController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Doctor $doctor)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(UpdateRequest $request, Doctor $doctor): Doctor
@@ -71,7 +54,7 @@ class DoctorController extends Controller
     {
 		$doctor->delete();
 		return response([
-			'message' => 'category deleted successfully'
+			'message' => '$doctor deleted successfully'
 		]);
     }
 }

@@ -10,13 +10,13 @@ class Slot extends Model
 {
 	protected $guarded = false;
 
-	public function doctor(): BelongsTo
-	{
-		return $this->belongsTo(Doctor::class);
-	}
-
 	public function records(): HasMany
 	{
 		return $this->hasMany(Record::class);
+	}
+
+	public function doctorHospital(): BelongsTo
+	{
+		return $this->belongsTo(DoctorHospital::class);
 	}
 }

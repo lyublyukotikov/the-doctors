@@ -6,6 +6,9 @@
       <sourceFolder url="file://$MODULE_DIR$/backend/database/factories" isTestSource="false" packagePrefix="Database\Factories\" />
       <sourceFolder url="file://$MODULE_DIR$/backend/database/seeders" isTestSource="false" packagePrefix="Database\Seeders\" />
       <sourceFolder url="file://$MODULE_DIR$/backend/tests" isTestSource="true" packagePrefix="Tests\" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/lcobucci/clock" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/lcobucci/jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/tymon/jwt-auth" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

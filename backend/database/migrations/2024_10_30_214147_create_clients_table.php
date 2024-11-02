@@ -17,7 +17,7 @@ return new class extends Migration
 			$table->string('surname')->nullable();
 			$table->string('email')->unique()->nullable();
 			$table->string('phone')->unique()->nullable();
-			$table->integer('age')->nullable();
+			$table->date('birthday')->nullable();
 			$table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
